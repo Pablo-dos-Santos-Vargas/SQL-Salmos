@@ -1,0 +1,10 @@
+# Ignorar arquivos de chave JSON
+*.json
+
+# Ignorar variáveis de ambiente
+.env
+
+# Ignorar pastas e arquivos do Python
+venv/
+__pycache__/
+*.pyc

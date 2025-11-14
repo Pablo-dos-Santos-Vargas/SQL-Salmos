@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analist</title>
+    <link rel="stylesheet" href="style_analise.css">
+</head>
+<body style="background-color: #dbd0b7 ;">
+    <header>
+        <nav>
+        <Ul>
+            <li>
+                <a href="index.html" title="Inicio">Inicio</a>
+            </li>
+            <li class="page-m">
+                <a href="analise.html" title="Analise">Analise</a>
+            </li>
+            <li>
+                <a href="consulta.html" title="Consulta">Consultar</a>
+            </li>
+            <li>
+                <a href="sobre.html" title="Sobre">Sobre</a>
+            </li>
+        </Ul>
+        </nav>
+    </header>
+<section style=" margin-top: -40px; margin-bottom: 200px;">
+     <div style="width: 100%;">
+      <div style="
+    position:relative; 
+    margin-top:7%; 
+    margin-left:7%;
+    width:max-content;
+">
+
+    <!-- TÍTULO -->
+    <p style="
+        font-size:74px;
+        font-family:'Times New Roman', Times, serif;
+        margin:0;
+        white-space:nowrap;
+    ">
+        <b>Análise agora!</b>
+    </p>
+
+    <!-- HEXÁGONO INDEPENDENTE (ABSOLUTE) -->
+    <div style="
+        position:absolute;
+        top:100%;
+        left:169%;
+        transform:translateY(-50%) translateX(20px); 
+        
+        /* agora você pode aumentar à vontade */
+        width: 450px;
+        aspect-ratio:300/260;
+    ">
+        <div style="
+            width:100%; height:100%;
+            background-color:#465d39;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            box-shadow:0 10px 24px rgba(0,0,0,0.25);
+        "></div>
+
+        <img src="img/Logo_S&S.png" style="
+            position:absolute; top:50%; left:50%;
+            width:110%; transform:translate(-50%, -50%);
+            border-radius:12px;
+        ">
+    </div>
+
+</div>
+    <p>
+        De uma forma simples!
+    </p>
+    <img src="img/LogoSENAC.png" alt="LogoSENAC" style="width: 74px; height: auto; margin-left: 7%; padding-top: 25px;">
+    </div>
+</section>
+<section class="analise-wrap" style="background-color:#2f4b2f;">
+  <div class="wrap">
+    <div class="layout">
+      <!-- COLUNA ESQUERDA: Imagem + Resultados -->
+      <section class="panel">
+        <h2>Imagem / Ficha analisada</h2>
+        <div id="ficha-view" data-ficha-id="">
+          <!-- coloque a URL da imagem da ficha aqui pelo backend -->
+          <img id="ficha-img" src="" alt="Pré-visualização da ficha (vazio)">
+        </div>
+
+        <h2 style="margin-top:16px">Resultados (miniaturas)</h2>
+        <div id="resultados">
+          <!-- Exemplo de slots vazios (o backend pode repetir este bloco) -->
+          <div class="thumb" data-id="" data-score="" title="resultado 1">
+            <img src="" alt="miniatura 1">
+          </div>
+          <div class="thumb" data-id="" data-score="" title="resultado 2">
+            <img src="" alt="miniatura 2">
+          </div>
+          <div class="thumb" data-id="" data-score="" title="resultado 3">
+            <img src="" alt="miniatura 3">
+          </div>
+          <!-- Repita conforme necessário no backend -->
+        </div>
+      </section>
+
+      <!-- COLUNA DIREITA: Consulta + Tabela -->
+      <aside class="panel">
+        <h2>Consulta</h2>
+        <!-- ação/rota do seu backend (Flask/FastAPI) -->
+        <form id="consulta-form" action="/consultar" method="get">
+          <input id="q" name="q" type="text" placeholder="Digite um código, termo ou data…" value="">
+          <button id="btn-buscar" type="submit">Buscar</button>
+        </form>
+        <p class="footer-note">Dica: você pode também implementar upload para testar imagens locais.</p>
+
+        <h2 style="margin-top:18px">Tabela de dados / Métricas</h2>
+        <table aria-describedby="descr">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Valor</th>
+              <th>Confiança</th>
+            </tr>
+          </thead>
+          <tbody id="metrics-body">
+            <!-- preencha via backend:
+            {% for row in metrics %}
+              <tr>
+                <td>{{ row.campo }}</td>
+                <td>{{ row.valor }}</td>
+                <td>{{ '%.1f%%'|format(row.confianca*100) }}</td>
+              </tr>
+            {% endfor %}
+            -->
+            <!-- linhas de exemplo vazias -->
+            <tr><td>material</td><td></td><td></td></tr>
+            <tr><td>local</td><td></td><td></td></tr>
+            <tr><td>data</td><td></td><td></td></tr>
+            <tr><td>exatidão</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+        <div id="descr" class="footer-note">Preencha as células no backend. IDs e atributos prontos para binding.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+  <!-- (Opcional) JS mínimo para trocar a imagem grande ao clicar nas miniaturas -->
+  <script>
+    document.addEventListener('click', (e)=>{
+      const t = e.target.closest('.thumb');
+      if(!t) return;
+      const big = document.getElementById('ficha-img');
+      const idHolder = document.getElementById('ficha-view');
+      const img = t.querySelector('img');
+      if(img && img.src){ big.src = img.src; }
+      idHolder.dataset.fichaId = t.dataset.id || "";
+    });
+  </script>
+
+ <section style="margin: 200px 0px; text-align: center;">
+        <h2 style="font-size: 36px; font-family: suez one, 'Times New Roman', Times, serif;">Como funciona a analise?</h2>
+        <p style="font-size: 18px; font-family: suez one, 'Times New Roman', Times, serif; max-width: 800px; margin: 0 auto;">
+            A analise é realizada através do processamento de imagens enviadas pelo usuário. Utilizamos algoritmos avançados de reconhecimento de padrões para extrair informações relevantes das fichas analisadas, garantindo precisão e eficiência nos resultados apresentados.
+        </p>
+    </section>
+<section>
+  <footer style="
+    width: 100%;
+    padding: 24px 0px;
+    background:rgba(47,75,47);
+;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid rgba(86,82,72,0.9);
+">
+    <p style="margin: 0; color: #dbd0b7;">&copy; 2025 <strong>S&S</strong>. Todos os direitos reservados.</p>
+</footer>
+</section>
+</body>
+</html>
