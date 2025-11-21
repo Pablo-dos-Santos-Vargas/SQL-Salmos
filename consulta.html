@@ -22,19 +22,18 @@
             <li>
                 <a href="sobre.html" title="Sobre">Sobre</a>
             </li>
-        </Ul> 
+        </Ul>
         </nav>
     </header>
 <section style=" margin-top: -40px; margin-bottom: 200px;">
      <div style="width: 100%;">
 <div style="
-    position:relative; 
-    margin-top:7%; 
+    position:relative;
+    margin-top:7%;
     margin-left:7%;
     width:max-content;
 ">
 
-    <!-- TÍTULO -->
     <p style="
         font-size:74px;
         font-family:'Times New Roman', Times, serif;
@@ -44,13 +43,12 @@
         <b>Sua solução em um clique</b>
     </p>
 
-    <!-- HEXÁGONO INDEPENDENTE (ABSOLUTE) -->
     <div style="
         position:absolute;
         top:100%;
         left:100%;
-        transform:translateY(-50%) translateX(20px); 
-        
+        transform:translateY(-50%) translateX(20px);
+
         /* agora você pode aumentar à vontade */
         width: 450px;
         aspect-ratio:300/260;
@@ -79,9 +77,17 @@
 <section class="analise-wrap" style="background-color:#2f4b2f;">
 <div class="wrap">
     <div class="layout">
-      <!-- ESQUERDA: Câmera -->
       <section class="panel">
         <h2>Imagem ao vivo</h2>
+
+        <div style="background: #2f4b2f; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+            <label for="api-url-input" style="color: #fff; display: block; margin-bottom: 5px; font-weight: bold;">
+                🔗 Link do Servidor:
+            </label>
+            <input type="text" id="api-url-input" placeholder="Cole aqui o link https://....ngrok-free.app"
+                   style="width: 95%; padding: 8px; border-radius: 4px; border: none;">
+        </div>
+
         <div id="cam-wrap">
           <video id="video" autoplay playsinline muted></video>
           <div class="row">
@@ -90,14 +96,13 @@
             <button id="btn-capture" type="button">Capturar</button>
             <button id="btn-stop" type="button" class="secondary">Parar</button>
           </div>
-          <div class="note">Dica: em celulares, use a câmera traseira (botão “Trocar câmera”). Requer HTTPS ou <code>localhost</code>.</div>
+          <div class="note">Dica: Cole o link gerado pelo Ngrok no campo acima antes de capturar.</div>
 
           <h2 style="margin-top:8px">Última captura</h2>
           <img id="shot" alt="Pré-visualização da captura">
         </div>
       </section>
 
-      <!-- DIREITA: Tabela de resultados -->
       <aside class="panel">
         <h2>Resultados da IA</h2>
         <table>
@@ -109,7 +114,6 @@
             </tr>
           </thead>
           <tbody id="results-body">
-            <!-- linhas serão inseridas via JS após resposta do backend -->
             <tr><td>material</td><td></td><td></td></tr>
             <tr><td>local</td><td></td><td></td></tr>
             <tr><td>data</td><td></td><td></td></tr>
@@ -122,12 +126,10 @@
     </div>
   </div>
 </section>
-  <!-- Canvas oculto só para gerar a imagem da captura -->
   <canvas id="canvas" style="display:none"></canvas>
 
   <script>
-    let stream=null, currentFacing='environment'; // environment | user
-    const API_URL = 'http://localhost:5000/api/upload';
+    let stream=null, currentFacing='environment';
 
     async function startCamera() {
       stopCamera();
@@ -143,22 +145,44 @@
         setError('Não foi possível acessar a câmera: '+ e.message);
       }
     }
+
     function stopCamera(){
       if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
       document.getElementById('video').srcObject=null;
       setStatus('Câmera parada.');
     }
+
     function switchCamera(){
       currentFacing = (currentFacing==='environment' ? 'user' : 'environment');
       startCamera();
     }
+
     async function captureAndSend(){
       const video = document.getElementById('video');
+
+      // --- Ler URL do Input ---
+      let baseUrl = document.getElementById('api-url-input').value.trim();
+
+      if(!baseUrl) {
+          alert("⚠️ ATENÇÃO: Cole o link do Ngrok no campo acima da câmera!");
+          setError("Cole o link do Ngrok antes de enviar.");
+          return;
+      }
+
+      // Remove barra final se o usuário colou com ela (ex: .app/)
+      if(baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+
+      // Adiciona o caminho da API
+      const FULL_API_URL = baseUrl + '/api/upload';
+
+      // Salva no navegador para não precisar colar de novo se der F5
+      localStorage.setItem('ngrok_saved_url', baseUrl);
+      // --------------------------------------
+
       if(!video.srcObject){ setError('Inicie a câmera antes de capturar.'); return; }
 
       // desenha frame no canvas
       const canvas = document.getElementById('canvas');
-      // mantém proporção 4:3
       const w = video.videoWidth || 1280, h = video.videoHeight || 960;
       canvas.width = w; canvas.height = h;
       const ctx = canvas.getContext('2d');
@@ -175,12 +199,13 @@
         form.append('imagem', blob, 'captura.jpg');
 
         try{
-          const resp = await fetch(API_URL, { method:'POST', body: form });
-          
+          // Usa a URL dinâmica
+          const resp = await fetch(FULL_API_URL, { method:'POST', body: form });
+
           const data = await resp.json();
 
-          if(!resp.ok){ 
-            throw new Error(`HTTP ${resp.status}: ${data.mensagem || 'Erro desconhecido'}`); 
+          if(!resp.ok){
+            throw new Error(`HTTP ${resp.status}: ${data.mensagem || 'Erro desconhecido'}`);
           }
 
           if (data.dados_lidos) {
@@ -193,32 +218,28 @@
         }catch(e){
           console.error(e);
           setError('Falha ao analisar: '+ e.message);
-          setStatus('Erro na análise.');
+          setStatus('Erro na análise. Verifique se o link do Ngrok está correto e o Python rodando.');
         }
       }, 'image/jpeg', 0.9);
     }
 
-    // CORREÇÃO 4: Reescrever a função renderTable para aceitar um OBJETO (dados_lidos)
     function renderTable(dataObject){
       const tbody = document.getElementById('results-body');
       tbody.innerHTML = '';
-      
+
       if(!dataObject || Object.keys(dataObject).length === 0){
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nenhum dado extraído. Verifique o treinamento da IA.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nenhum dado extraído.</td></tr>';
         return;
       }
-      
-      // Itera sobre o objeto (ex: {Data: '10/10/2025', Item: 'Parafuso', ...})
+
       for (const [campo, valor] of Object.entries(dataObject)) {
         const tr = document.createElement('tr');
-        
-        // Formata o valor booleano (dos checkboxes) para ficar legível
+
         let valorFormatado = valor;
         if (typeof valor === 'boolean') {
             valorFormatado = valor ? 'Sim (Marcado)' : 'Não';
         }
 
-        // O seu Python não retorna confiança por campo (o que é normal), então removemos
         tr.innerHTML = `<td>${campo}</td><td>${valorFormatado}</td><td>OK</td>`;
         tbody.appendChild(tr);
       }
@@ -233,9 +254,17 @@
     document.getElementById('btn-switch').addEventListener('click', switchCamera);
     document.getElementById('btn-capture').addEventListener('click', captureAndSend);
 
-    // tenta iniciar automaticamente (silencioso)
-    if (navigator.mediaDevices && (location.protocol.startsWith('https') || location.hostname==='localhost')) {
-      startCamera().catch(()=>{});
+    // Ao carregar a página, tenta recuperar o último link usado
+    window.onload = function() {
+        const savedUrl = localStorage.getItem('ngrok_saved_url');
+        if(savedUrl) {
+            document.getElementById('api-url-input').value = savedUrl;
+        }
+
+        // tenta iniciar câmera automaticamente
+        if (navigator.mediaDevices && (location.protocol.startsWith('https') || location.hostname==='localhost')) {
+            startCamera().catch(()=>{});
+        }
     }
 
   </script>
