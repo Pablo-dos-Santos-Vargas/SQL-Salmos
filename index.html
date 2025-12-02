@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja Bem-Vindo ao S&S</title>
+    
+    <style>
+        /* --- RESET E ESTILOS GERAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #DBD0B7;
+            overflow-x: hidden;
+            color: #465D39;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- HEADER (CARTÃO CENTRALIZADO COM BORDA JUSTA NAS EXTREMIDADES) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 12px 2px; /* ajuste fino para borda encostar nos botões */
+            background-color: #dbd0b7;
+            color: #465D39;
+
+            width: fit-content; /* borda acompanha o menu */
+            height: auto;
+
+            border-radius: 0 0 10px 10px;
+            border: 2px solid #bcaf92;
+            border-top: none;
+            box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+
+            gap: 35px; /* ajuste da distância entre os itens */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: #465D39;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+
+        /* HOVER PADRÃO DO PROJETO: FUNDO VERDE E TEXTO BEGE */
+        nav a:hover {
+            background-color: #2f4b2f !important;
+            color: #dbd0b7 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        nav a.active {
+            background-color: rgba(70,75,57,0.06);
+            color: #465D39;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        /* Botão verde (página atual) */
+        .page a,
+        .page a.active {
+            background-color: #2f4b2f;
+            color: #dbd0b7;
+            font-weight: 600;
+            padding: 13px 26px;
+            border-radius: 0 0 0 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        .page-f a,
+        .page-f a.active {
+            background-color: #2f4b2f;
+            color: #dbd0b7;
+            font-weight: 600;
+            padding: 13px 26px;
+            border-radius: 0 0 8px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        .page-m a,
+        .page-m a.active {
+            background-color: #2f4b2f;
+            color: #dbd0b7;
+            font-weight: 600;
+            padding: 13px 26px;
+            border-radius: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        /* --- SEÇÃO 1: HERO --- */
+        .hero {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background-color: #DBD0B7;
+            padding-top: 80px; /* respiro abaixo do header */
+        }
+
+        .hero-text-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;      /* centraliza horizontalmente */
+            gap: 20px;
+            z-index: 2;
+            text-align: center;       /* texto centralizado */
+        }
+
+        .main-title {
+            font-size: clamp(40px, 6vw, 90px);
+            line-height: 1;
+            color: #465D39;           /* cor da marca */
+            white-space: nowrap;
+        }
+
+        .sub-title {
+            font-size: 24px;
+            color: #465D39;           /* cor da marca */
+            font-style: italic;
+        }
+
+        .logo-senac {
+            width: 140px;
+            height: auto;
+            margin-top: 20px;
+            mix-blend-mode: multiply;
+        }
+
+        .hero-visual-content {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        /* 🔽 HEXÁGONO DIMINUÍDO (DESKTOP) */
+        .hexagon-wrapper {
+            position: relative;
+            width: 420px;   /* antes 600px */
+            height: 360px;  /* antes 520px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: -30px;
+        }
+
+        .hexagon-shape {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #465d39;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+        }
+
+        .logo-ss {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            border-radius: 12px;
+        }
+
+        /* --- SEÇÃO 2: CARDS --- */
+        .cards-section {
+            min-height: 100vh; 
+            width: 100%;
+            background-color: #2f4b2f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 5%;
+        }
+
+        .card-link {
+            flex: 1;
+            max-width: 400px;
+            height: 70vh;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease;
+        }
+
+        .card-link:hover .card {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 24px 50px rgba(0,0,0,0.6);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .card h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        /* --- SEÇÃO 3: SOBRE A PLATAFORMA --- */
+        .platform-info-section {
+            padding: 100px 5%;
+            background-color: #DBD0B7;
+            color: #465D39;   /* texto geral nessa cor */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-header h2 {
+            font-size: 56px;
+            font-family: 'Times New Roman', serif;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #465D39;   /* título na cor da marca */
+        }
+
+        .info-header p {
+            font-size: 22px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            max-width: 900px;
+            margin: 0 auto 80px auto;
+            line-height: 1.4;
+            color: #465D39;   /* texto também na cor da marca */
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        .feature-item {
+            flex: 1;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-item img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .feature-item h3 {
+            font-family: 'Times New Roman', serif;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            color: #465D39;   /* título dos cards na mesma cor */
+        }
+
+        .feature-item p {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #465D39;   /* texto dos cards na mesma cor */
+            max-width: 250px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            width: 2px;
+            height: 180px;
+            background-color: #000;
+            margin: 20px 10px 0 10px;
+            opacity: 0.3;
+        }
+
+        footer {
+            padding: 20px 0;
+            background-color: #1e301e;
+            color: #dbd0b7;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* TEXTURAS (caso aplique em body/sections) */
+        .bege {
+            background-color: #dbd0b7;
+            background-image: url("img/textura_bege.png");
+            background-repeat: repeat;
+            background-size: auto;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .verde {
+            background-color: #2f4b2f;
+            background-image: url("img/textura_verde.png"); 
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        section {
+            position: relative;
+            width: 100%;
+        }
+
+        .bege::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #dbd0b7;
+            opacity: 0.90;
+            pointer-events: none;
+        }
+
+        .verde::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.08);
+            pointer-events: none;
+        }
+
+        /* --- RESPONSIVIDADE (MOBILE / TABLET) --- */
+        @media (max-width: 1024px) {
+            /* header continua cartão compacto, centralizado */
+            header {
+                width: fit-content;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 8px 3px;
+                border-radius: 0 0 10px 10px;
+            }
+
+            nav ul {
+                gap: 22px;
+                padding: 0;
+                flex-wrap: nowrap; /* não empilha os itens */
+            }
+
+            nav a {
+                font-size: 16px;
+                padding: 6px 10px;
+            }
+
+            .hero {
+                flex-direction: column-reverse;
+                justify-content: center;
+                text-align: center;
+                gap: 40px;
+                padding-top: 120px;
+                height: auto;
+                padding-bottom: 50px;
+            }
+
+            .hero-text-content { 
+                align-items: center; 
+                width: 100%; 
+                text-align: center;
+            }
+            .hero-visual-content { justify-content: center; width: 100%; }
+
+            /* hexágono responsivo e um pouco menor no tablet */
+            .hexagon-wrapper { 
+                width: 80vw; 
+                height: 65vw; 
+                max-width: 340px; 
+                max-height: 280px; 
+                margin-right: 0; 
+            }
+
+            .main-title { white-space: normal; font-size: 42px; }
+
+            .cards-section {
+                flex-direction: column;
+                height: auto;
+                padding: 80px 20px;
+            }
+
+            .card-link { width: 100%; height: 450px; }
+
+            .features-grid {
+                flex-direction: column;
+                gap: 60px;
+            }
+
+            .divider { display: none; }
+
+            .info-header h2 { font-size: 40px; }
+
+            .feature-item {
+                align-items: center !important;
+                text-align: center !important;
+                width: 100%;
+            }
+
+            .feature-item img {
+                margin: 0 auto 20px auto;
+            }
+
+            .feature-item h3 {
+                justify-content: center;
+                min-height: auto;
+            }
+
+            .feature-item p {
+                max-width: 90%;
+            }
+        }
+
+        /* --- ESCONDER SOMENTE O BLOCO DO HEXÁGONO NO MOBILE --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 6px 2px;
+                width: fit-content;
+            }
+
+            nav ul {
+                gap: 14px;
+                flex-wrap: nowrap;
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 5px 8px;
+            }
+
+            .mobile-real {
+                display: none !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li class="page">
+                    <a href="index.html" title="Inicio">Inicio</a>
+                </li>
+                <li>
+                    <a href="https://app.powerbi.com/links/b1qncBfZjJ?ctid=6f9e3b1e-1809-444a-81d3-82d40a928812&pbi_source=linkShare" target="_blank" title="Analise">Analise</a>
+                </li>
+                <li>
+                    <a href="consulta.html" title="Consulta">Consultar</a>
+                </li>
+                <li>
+                    <a href="sobre.html" title="Sobre">Sobre</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text-content">
+            <h1 class="main-title"><b>Feitos para solucionar</b></h1>
+            <p class="sub-title">Focados em você!</p>
+            <img src="img/LogoSENAC.png" alt="Logo SENAC" class="logo-senac">
+        </div>
+
+        <!-- Bloco do hexágono some no mobile -->
+        <div class="hero-visual-content mobile-real">
+            <div class="hexagon-wrapper">
+                <div class="hexagon-shape"></div>
+                <img src="img/Logo_S&S.png" alt="Logo S&S" class="logo-ss">
+            </div>
+        </div>
+    </section>
+
+    <section class="cards-section">
+        
+        <a href="https://app.powerbi.com/links/b1qncBfZjJ?ctid=6f9e3b1e-1809-444a-81d3-82d40a928812&pbi_source=linkShare" target="_blank" class="card-link">
+            <div class="card" style="background-image:url('img/img1.jpg');">
+                <span class="card-overlay"></span>
+                <div class="card-content">
+                    <h3>Análise</h3>
+                    <p>Visualize métricas e indicadores de desempenho através de um painel de BI integrado.</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="consulta.html" class="card-link">
+            <div class="card" style="background-image:url('img/img2.jpg');">
+                <span class="card-overlay"></span>
+                <div class="card-content">
+                    <h3>Consulta</h3>
+                    <p>Capture fotos de formulário e extraia os dados automaticamente usando Inteligência Artificial.</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="sobre.html" class="card-link">
+            <div class="card" style="background-image:url('img/img3.jpg');">
+                <span class="card-overlay"></span>
+                <div class="card-content">
+                    <h3>Sobre</h3>
+                    <p>Acesse tutoriais interativos e aprenda passo a passo como explorar todas as funções do sistema.</p>
+                </div>
+            </div>
+        </a>
+
+    </section>
+
+    <section class="platform-info-section">
+        
+        <div class="info-header">
+            <h2>Sobre nossa plataforma</h2>
+            <p>"Desenvolvemos uma solução sob medida para mantê-lo sempre atualizado e à frente, com insights que impulsionam suas decisões."</p>
+        </div>
+
+        <div class="features-grid">
+            
+            <div class="feature-item">
+                <img src="img/Cérebro PNG.png" alt="Cérebro">
+                <h3>Decisões aprimoradas</h3>
+                <p>Dados claros para escolhas mais assertivas</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="feature-item">
+                <img src="img/Relógio PNG.png" alt="Relógio">
+                <h3>Otimização de tempo</h3>
+                <p>Automação e organização para focar no que realmente importa</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="feature-item">
+                <img src="img/Engrenagem PNG.png" alt="Engrenagem">
+                <h3>Visão holística</h3>
+                <p>Integração de informações para uma compreensão completa</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="feature-item">
+                <img src="img/Cadeado PNG.png" alt="Segurança">
+                <h3>Segurança e confiabilidade</h3>
+                <p>Proteção dos seus dados com uma plataforma robusta</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2025 <strong>S&S</strong>. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

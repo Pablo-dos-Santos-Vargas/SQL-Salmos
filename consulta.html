@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultant - S&S</title>
+    
+    <style>
+        /* --- RESET E ESTILOS GERAIS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #DBD0B7; /* Fundo base bege */
+            overflow-x: hidden;
+            color: #465D39;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- HEADER (MESMO ESTILO DA HOME) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 12px 2px; /* ajuste fino para borda encostar nos botões */
+            background-color: #dbd0b7;
+            color: #465D39;
+
+            width: fit-content; /* borda acompanha o menu */
+            height: auto;
+
+            border-radius: 0 0 10px 10px;
+            border: 2px solid #bcaf92;
+            border-top: none;
+            box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
+
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+
+            gap: 35px; /* mesma proporção da home */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: #465D39;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: capitalize;
+        }
+
+        /* HOVER: fundo verde + texto bege, igual ao ativo */
+        nav a:hover {
+            background-color: #2f4b2f !important;
+            color: #dbd0b7 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        /* Botão verde ativo (Consultar) */
+        .page-m a,
+        .page-m a.active {
+            background-color: #2f4b2f;
+            color: #dbd0b7;
+            font-weight: 600;
+            padding: 13px 26px;
+            border-radius: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+
+        /* --- SEÇÃO DE TÍTULO (TOPO) --- */
+        .title-section {
+            background-color: #DBD0B7; /* Fundo Bege */
+            text-align: center;
+            padding-top: 110px; /* Espaço para o menu fixo */
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .title-section h1 {
+            font-size: 48px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #465D39;         /* cor ajustada */
+            margin: 0;
+        }
+
+        .title-section p {
+            font-family: 'Times New Roman', Times, serif; 
+            font-size: 18px;
+            color: #465D39;         /* cor ajustada */
+            max-width: 700px;
+            padding: 0 20px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* CONTAINER DOS LOGOS LADO A LADO */
+        .logos-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px; /* Espaço entre os logos */
+            margin-top: 20px;
+        }
+
+        /* --- LOGO SENAC PEQUENO --- */
+        .logo-senac-small {
+            width: 80px;
+            height: auto;
+            mix-blend-mode: multiply;
+        }
+
+        /* --- LOGO S&S PEQUENO COM HEXÁGONO --- */
+        .hex-small-wrapper {
+            position: relative;
+            width: 90px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hex-small-shape {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #465d39;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+
+        .logo-ss-small {
+            position: relative;
+            z-index: 2;
+            width: 85%; /* Um pouco menor que o hexágono para caber dentro */
+            height: auto;
+        }
+
+        /* --- SEÇÃO DA CÂMERA (VERDE) --- */
+        .camera-section {
+            background-color: #2f4b2f; /* Fundo Verde Escuro */
+            color: #fff;
+            padding: 60px 5%;
+            min-height: 80vh; /* Altura mínima boa */
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            border-radius: 30px 30px 0 0; 
+        }
+
+        .layout-grid {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            max-width: 1400px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .panel {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            flex: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .panel h2 {
+            font-family: 'Times New Roman', serif;
+            margin-bottom: 20px;
+            font-size: 28px;
+            border-bottom: 2px solid #465d39;
+            padding-bottom: 10px;
+        }
+
+        /* Área do Vídeo */
+        #cam-wrap video {
+            width: 100%;
+            border-radius: 10px;
+            background: #000;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Imagem de Captura (Inicialmente Oculta) */
+        #shot {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 2px solid #465d39;
+            background: #111;
+            display: none; /* OCULTO POR PADRÃO */
+        }
+
+        /* Botões */
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            background-color: #465d39;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #5a754a;
+            transform: translateY(-2px);
+        }
+
+        button.secondary {
+            background-color: #555;
+        }
+        button.secondary:hover {
+            background-color: #666;
+        }
+
+        /* Tabela de Resultados */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            background-color: rgba(0,0,0,0.3);
+            font-weight: bold;
+            color: #dbd0b7;
+        }
+
+        #status {
+            font-style: italic;
+            color: #dbd0b7;
+            margin-top: 10px;
+        }
+
+        #error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 20px 0;
+            background-color: #1e301e;
+            color: #dbd0b7;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        /* --- RESPONSIVIDADE TABLET --- */
+        @media (max-width: 1024px) {
+            header {
+                position: fixed;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: fit-content;        /* mantém compacto */
+                padding: 6px 3px;          /* menos bege ao redor */
+                border-radius: 0 0 10px 10px;
+            }
+
+            nav ul {
+                gap: 22px;                 /* ajusta espaçamento */
+                padding: 0;
+                flex-wrap: nowrap;         /* não empilha os itens */
+            }
+
+            nav a {
+                font-size: 15px;
+                padding: 6px 10px;
+            }
+
+            .page-m a,
+            .page-m a.active {
+                padding: 8px 16px;
+            }
+
+            .title-section {
+                padding-top: 95px;
+                padding-bottom: 30px;
+            }
+
+            .title-section h1 {
+                font-size: 36px;
+            }
+
+            .title-section p {
+                font-size: 16px;
+                max-width: 90%;
+            }
+
+            .logos-row {
+                gap: 20px;
+            }
+
+            .hex-small-wrapper {
+                width: 75px;
+                height: 66px;
+            }
+
+            .logo-senac-small {
+                width: 70px;
+            }
+
+            .camera-section {
+                padding: 40px 5%;
+                border-radius: 20px 20px 0 0;
+            }
+
+            .layout-grid {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .panel {
+                width: 100%;
+                padding: 18px;
+            }
+
+            .panel h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            button {
+                font-size: 13px;
+                padding: 10px 14px;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+        /* --- RESPONSIVIDADE MOBILE --- */
+        @media (max-width: 768px) {
+            header {
+                padding: 8px 1px;
+                width: fit-content;
+            }
+
+            nav ul {
+                gap: 14px;
+                flex-wrap: nowrap;     /* garante que não empilha */
+            }
+
+            nav a {
+                font-size: 14px;
+                padding: 5px 8px;
+            }
+
+            .page-m a,
+            .page-m a.active {
+                padding: 7px 12px;
+            }
+
+            .title-section {
+                padding-top: 90px;
+                padding-bottom: 24px;
+            }
+
+            .title-section h1 {
+                font-size: 30px;
+            }
+
+            .title-section p {
+                font-size: 14px;
+                max-width: 92%;
+            }
+
+            .logos-row {
+                gap: 16px;
+            }
+
+            .camera-section {
+                padding: 30px 4%;
+            }
+
+            .panel h2 {
+                font-size: 22px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            /* Hexágono some no mobile */
+            .mobile-real {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" title="Inicio">Inicio</a></li>
+                <li>
+                    <a href="https://app.powerbi.com/links/b1qncBfZjJ?ctid=6f9e3b1e-1809-444a-81d3-82d40a928812&pbi_source=linkShare" target="_blank" title="Analise">Analise</a>
+                </li>
+                <li class="page-m">
+                    <a href="consulta.html" title="Consulta">Consultar</a>
+                </li>
+                <li><a href="sobre.html" title="Sobre">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="title-section">
+        <h1>Consulta simples</h1>
+        <p>Utilize a câmera para capturar, validar e identificar informações automaticamente com nossa inteligência artificial.</p>
+        
+        <div class="logos-row">
+            <div class="hex-small-wrapper">
+                <div class="hex-small-shape"></div>
+                <img src="img/Logo_S&S.png" alt="Logo S&S" class="logo-ss-small">
+            </div>
+
+            <img src="img/LogoSENAC.png" alt="Logo SENAC" class="logo-senac-small">
+        </div>
+    </section>
+
+    <section class="camera-section">
+        <div class="layout-grid">
+            
+            <section class="panel">
+                <h2>Imagem ao vivo</h2>
+                <div id="cam-wrap">
+                    <video id="video" autoplay playsinline muted></video>
+                    
+                    <div class="controls-row">
+                        <button id="btn-start" type="button">Iniciar</button>
+                        <button id="btn-switch" type="button" class="secondary">Trocar Câm</button>
+                        <button id="btn-capture" type="button">Capturar</button>
+                        <button id="btn-stop" type="button" class="secondary">Parar</button>
+                    </div>
+
+                    <img id="shot" alt="Pré-visualização da captura">
+                </div>
+            </section>
+
+            <aside class="panel">
+                <h2>Resultados da IA</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body"></tbody>
+                </table>
+                <div id="status">Aguardando captura…</div>
+                <div id="error"></div>
+            </aside>
+
+        </div>
+    </section>
+
+    <canvas id="canvas" style="display:none"></canvas>
+
+    <script>
+        let stream=null, currentFacing='environment';
+        
+        const FIXED_NGROK_URL = "https://lither-domonique-regretfully.ngrok-free.dev";
+
+        async function startCamera() {
+            stopCamera();
+            try{
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: { ideal: currentFacing }, width: { ideal: 1280 }, height: { ideal: 960 } },
+                    audio: false
+                });
+                document.getElementById('video').srcObject = stream;
+                setStatus('Câmera iniciada.');
+                setError('');
+            }catch(e){
+                setError('Não foi possível acessar a câmera: '+ e.message);
+            }
+        }
+
+        function stopCamera(){
+            if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+            document.getElementById('video').srcObject=null;
+            setStatus('Câmera parada.');
+        }
+
+        function switchCamera(){
+            currentFacing = (currentFacing==='environment' ? 'user' : 'environment');
+            startCamera();
+        }
+
+        async function captureAndSend(){
+            const video = document.getElementById('video');
+            let baseUrl = FIXED_NGROK_URL;
+
+            if(baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+            const FULL_API_URL = baseUrl + '/api/upload';
+
+            if(!video.srcObject){ setError('Inicie a câmera antes de capturar.'); return; }
+
+            const canvas = document.getElementById('canvas');
+            const w = video.videoWidth || 1280, h = video.videoHeight || 960;
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, w, h);
+
+            // EXIBIR E DEFINIR A IMAGEM DE PRÉ-VISUALIZAÇÃO
+            const shotImg = document.getElementById('shot');
+            shotImg.src = canvas.toDataURL('image/jpeg', 0.9);
+            shotImg.style.display = 'block'; // Torna visível agora
+
+            setStatus('Enviando imagem para análise…');
+            setError('');
+            canvas.toBlob(async (blob)=>{
+                const form = new FormData();
+                form.append('imagem', blob, 'captura.jpg');
+
+                try{
+                    const resp = await fetch(FULL_API_URL, { method:'POST', body: form });
+                    const data = await resp.json();
+
+                    if(!resp.ok){
+                        throw new Error(`HTTP ${resp.status}: ${data.mensagem || 'Erro desconhecido'}`);
+                    }
+
+                    if (data.dados_lidos) {
+                        renderTable(data.dados_lidos);
+                        setStatus('Análise concluída.');
+                    } else {
+                        throw new Error(data.mensagem || 'API não retornou o objeto "dados_lidos"');
+                    }
+
+                }catch(e){
+                    console.error(e);
+                    setError('Falha ao analisar: '+ e.message);
+                    setStatus('Erro na análise. Verifique o servidor Python.');
+                }
+            }, 'image/jpeg', 0.9);
+        }
+
+        function renderTable(dataObject){
+            const tbody = document.getElementById('results-body');
+            tbody.innerHTML = '';
+
+            if(!dataObject || Object.keys(dataObject).length === 0){
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nenhum dado extraído.</td></tr>';
+                return;
+            }
+
+            for (const [campo, valor] of Object.entries(dataObject)) {
+                const tr = document.createElement('tr');
+                let valorFormatado = valor;
+                if (typeof valor === 'boolean') {
+                    valorFormatado = valor ? 'Sim (Marcado)' : 'Não';
+                }
+                tr.innerHTML = `<td>${campo}</td><td>${valorFormatado}</td>`;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function setStatus(t){ document.getElementById('status').textContent = t; }
+        function setError(t){ document.getElementById('error').textContent = t; }
+
+        document.getElementById('btn-start').addEventListener('click', startCamera);
+        document.getElementById('btn-stop').addEventListener('click', stopCamera);
+        document.getElementById('btn-switch').addEventListener('click', switchCamera);
+        document.getElementById('btn-capture').addEventListener('click', captureAndSend);
+
+        window.onload = function() {
+            if (navigator.mediaDevices && (location.protocol.startsWith('https') || location.hostname==='localhost')) {
+                startCamera().catch(()=>{});
+            }
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2025 <strong>S&S</strong>. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>

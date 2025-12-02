@@ -1,0 +1,123 @@
+body{
+    background-color: #dbd0b7;
+    color: #465D39;
+     padding-top: 80px; 
+    margin: 0px;
+}
+header {
+  display: inline-block;              /* organiza os itens na horizontal */
+  justify-content: space-between; /* espaço entre o título e o menu */
+  align-items: center;        /* centraliza verticalmente os itens dentro do header */
+  position: fixed;            /* fixa o header no topo durante o scroll */
+    top: 0;
+    left: 10%;
+  padding: 13px 0px;
+  background-color: #dbd0b7;
+  color: #465D39;
+  margin: 0;
+  z-index: 1000;
+  border-radius: 0px 0px 10px 10px; /* bordas arredondadas */
+  border: 2px solid #bcaf92; /* borda fina ao redor do header */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); /* sombreado beje bem opaco */
+}
+h1 {
+    margin-left: 7%;
+    font-size: 74px;
+    color: #2f4b2f ;
+    font-family: suez one, 'Times New Roman', Times, serif;
+}
+p {
+
+    margin: 0px 0px 0px 7%;
+    font-size: 24px;
+    color: #465D39 ;
+    font-family: suez one, 'Times New Roman', Times, serif;
+}
+nav ul {
+  list-style: none;         
+  display: flex;              
+  gap: 0px;                 
+  margin: 0;
+  padding: 0px 0px;
+}
+nav a {
+  color: #465D39;             
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s;
+}
+nav a:hover {
+  background: rgba(219,208,183,0.12);
+  color: #dbd0b7;
+}
+nav a.active {
+  background-color: rgba(70,75,57,0.06);
+  color: #465D39;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 0px 0px 10px 10px;;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);}
+.page a,
+.page a.active {
+  background-color: #2f4b2f;
+  color: #dbd0b7;            
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 0px 0px 0px 8px;;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.page-f a,
+.page-f a.active {
+  background-color: #2f4b2f; 
+  color: #dbd0b7;            
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 0px 0px 8px 0px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.page-m a,
+.page-m a.active {
+  background-color: #2f4b2f; 
+  color: #dbd0b7;            
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 0px 0px 0px 0px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.bege {
+    background-color: #dbd0b7;
+    background-image: url("img/textura_bege.png");
+    background-repeat: repeat;
+    background-size: auto;      /* mantém a proporção real da textura */
+    background-attachment: fixed;
+    position: relative;
+}
+
+.verde {
+    background-color: #2f4b2f;
+    background-image: url("img/textura_verde.png"); 
+    background-size: cover;
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+section {
+    position: relative;
+    width: 100%;
+}
+
+/* Suavização da textura (camada de opacidade sobre ela) */
+.bege::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #dbd0b7;        /* mesma cor do fundo */
+    opacity: 0.90;              /* deixa a textura MUITO leve (pode ajustar) */
+    pointer-events: none;
+}
+
+.verde::before {
+    background: rgba(0,0,0,0.08);
+}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seja Bem-Vindo ao S&S</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div >
+    <header>
+        <nav>
+        <Ul>
+            <li class="page">
+                <a href="index.html" title="Inicio">Inicio</a>
+            </li>
+            <li>
+                <a href="analise.html" title="Analise">Analise</a>
+            </li>
+            <li>
+                <a href="consulta.html" title="Consulta">Consultar</a>
+            </li>
+            <li>
+                <a href="sobre.html" title="Sobre">Sobre</a>
+            </li>
+        </Ul>
+        </nav>
+    </header>
+    </div> <!-- Espaço para o header fixo -->
+    <section style=" margin-top: -40px; margin-bottom: 200px;">
+     <div style="width: 100%;">
+<!-- TÍTULO + HEXÁGONO LADO A LADO -->
+<!-- CONTAINER DO TÍTULO -->
+<div style="
+    position:relative; 
+    margin-top:7%; 
+    margin-left:7%;
+    width:max-content;
+">
+
+    <!-- TÍTULO -->
+    <p style="
+        font-size:74px;
+        font-family:'Times New Roman', Times, serif;
+        margin:0;
+        white-space:nowrap;
+    ">
+        <b>Feitos para solucionar</b>
+    </p>
+
+    <!-- HEXÁGONO INDEPENDENTE (ABSOLUTE) -->
+    <div style="
+        position:absolute;
+        top:100%;
+        left:110%;
+        transform:translateY(-50%) translateX(20px); 
+        
+        /* agora você pode aumentar à vontade */
+        width: 450px;
+        aspect-ratio:300/260;
+    ">
+        <div style="
+            width:100%; height:100%;
+            background-color:#465d39;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            box-shadow:0 10px 24px rgba(0,0,0,0.25);
+        "></div>
+
+        <img src="img/Logo_S&S.png" style="
+            position:absolute; top:50%; left:50%;
+            width:110%; transform:translate(-50%, -50%);
+            border-radius:12px;
+        ">
+    </div>
+
+</div>
+
+    <p>
+        Focados em você!
+    </p>
+    <img src="img/LogoSENAC.png" alt="LogoSENAC" style="width: 74px; height: auto; margin-left: 7%; padding-top: 25px;">
+        
+  </div>
+
+    </section><!-- Hexágono + imagem à direita (ajustado) -->
+
+    <section style="margin-top: 10px;background-color: #2f4b2f;padding: 50px 0px;display: flex;gap: 40px;justify-content: center;">
+   <a href="analise.html" aria-label="Abrir a aba de Análise"
+   style="display:inline-block; text-decoration:none; color:inherit; perspective:900px;"
+   onmouseover="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(26px) scale(1.035)';
+     card.style.boxShadow='0 24px 50px rgba(47,75,47,.75), 0 12px 28px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.55');
+   "
+   onmouseout="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(0) scale(1)';
+     card.style.boxShadow='0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.8');
+   ">
+  <div
+    style="
+      width:250px;height:400px;background-image:url('img/Analise_img.png');
+      background-size:cover;background-position:center;
+      border-radius:20px;
+      display:flex;align-items:flex-end;
+      padding:20px; position:relative; overflow:hidden;
+      transform-style:preserve-3d; transform:translateZ(0) scale(1);
+      box-shadow:0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75);
+      cursor:pointer;
+    ">
+    <span data-overlay
+      style="
+        content:''; position:absolute; inset:0;
+        background:rgba(47,75,47,.75); opacity:.8;
+        z-index:1; pointer-events:none;
+      ">
+    </span>
+    <div style="position:relative; z-index:2; display:flex; flex-direction:column; gap:.4rem;text-align:left; width:100%;">
+      <h3 style="font-size:32px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Análise
+      </h3>
+      <p style="font-size:22px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Esta aba tem o objetivo de analisar as respostas salvas, servindo como um meio de fácil acesso às informações.
+      </p>
+    </div>
+  </div>
+</a>
+<a href="consulta.html" aria-label="Abrir a aba de Análise"
+   style="display:inline-block; text-decoration:none; color:inherit; perspective:900px;"
+   onmouseover="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(26px) scale(1.035)';
+     card.style.boxShadow='0 24px 50px rgba(47,75,47,.75), 0 12px 28px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.55');
+   "
+   onmouseout="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(0) scale(1)';
+     card.style.boxShadow='0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.8');
+   ">
+  <div
+    style="
+      width:250px;height:400px;background-image:url('img/Analise_img.png');
+      background-size:cover;background-position:center;
+      border-radius:20px;
+      display:flex;align-items:flex-end;
+      padding:20px; position:relative; overflow:hidden;
+      transform-style:preserve-3d; transform:translateZ(0) scale(1);
+      box-shadow:0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75);
+      cursor:pointer;
+    ">
+    <span data-overlay
+      style="
+        content:''; position:absolute; inset:0;
+        background:rgba(47,75,47,.75); opacity:.8;
+        z-index:1; pointer-events:none;
+      ">
+    </span>
+    <div style="position:relative; z-index:2; display:flex; flex-direction:column; gap:.4rem;text-align:left; width:100%;">
+      <h3 style="font-size:32px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Consultar
+      </h3>
+      <p style="font-size:22px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Esta aba tem o objetivo de consultar os bilhetes tirando fotos e reconhecendo os dados.
+      </p>
+    </div>
+  </div>
+</a>
+<a href="sobre.html" aria-label="Abrir a aba de Análise"
+   style="display:inline-block; text-decoration:none; color:inherit; perspective:900px;"
+   onmouseover="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(26px) scale(1.035)';
+     card.style.boxShadow='0 24px 50px rgba(47,75,47,.75), 0 12px 28px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.55');
+   "
+   onmouseout="
+     const card=this.firstElementChild;
+     const ov=card.querySelector('[data-overlay]');
+     card.style.transform='translateZ(0) scale(1)';
+     card.style.boxShadow='0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75)';
+     ov && (ov.style.opacity='0.8');
+   ">
+  <div
+    style="
+      width:250px;height:400px;background-image:url('img/Analise_img.png');
+      background-size:cover;background-position:center;
+      border-radius:20px;
+      display:flex;align-items:flex-end;
+      padding:20px; position:relative; overflow:hidden;
+      transform-style:preserve-3d; transform:translateZ(0) scale(1);
+      box-shadow:0 14px 30px rgba(47,75,47,.75), 0 8px 16px rgba(47,75,47,.75);
+      cursor:pointer;
+    ">
+    <span data-overlay
+      style="
+        content:''; position:absolute; inset:0;
+        background:rgba(47,75,47,.75); opacity:.8;
+        z-index:1; pointer-events:none;
+      ">
+    </span>
+    <div style="position:relative; z-index:2; display:flex; flex-direction:column; gap:.4rem;text-align:left; width:100%;">
+      <h3 style="font-size:32px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Sobre
+      </h3>
+      <p style="font-size:22px; font-family:suez one, 'Times New Roman', Times, serif; color:#fff; margin:0;">
+        Esta aba tem o objetivo de ensinar sobre o funcionamento do sistema e como utilizá-lo e também informações sobre a equipe. 
+      </p>
+    </div>
+  </div>
+</a>
+</section>
+
+    <section style="margin: 200px 0px; text-align: center;">
+        <h2 style="font-size: 36px; font-family: suez one, 'Times New Roman', Times, serif;">Sobre o site</h2>
+        <p style="font-size: 18px; font-family: suez one, 'Times New Roman', Times, serif; max-width: 800px; margin: 0 auto;">
+            Oferecemos soluções personalizadas para atender às suas necessidades. Nossa equipe está pronta para ajudar você a alcançar seus objetivos com eficiência e inovação.
+        </p>
+    </section>
+<section>
+<footer style="
+    width: 100%;
+    padding: 24px 0px;
+    background:rgba(47,75,47);
+;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid rgba(86,82,72,0.9);
+">
+    <p style="margin: 0; color: #dbd0b7;">&copy; 2025 <strong>S&S</strong>. Todos os direitos reservados.</p>
+</footer>
+</section>
+</body>
+</html>
